@@ -9,12 +9,14 @@ class Job(scrapy.Item):
     link = scrapy.Field()
 
 class MolbotSpider(scrapy.Spider):
+    """
+    Search jobs based on keywords and companies
+    """
     name = 'oikotiebot'
     allowed_domains = ['oikotie.fi']
-    base_url = 'https://tyopaikat.oikotie.fi/haku?sijainti[101]=101&jq=python&sort_by=score&page=0'
     start_urls = []
-    key_words = ['python', '.net', 'labview', 'TestStand', 'C#', 'embedded', 'iot', 'avr' 'amazon', 'azure']
-    companies = ['kavo-kerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala']
+    key_words = ['python', '.net', 'labview', 'TestStand', 'C#', 'rust', 'embedded', 'iot', 'avr' 'amazon', 'azure', 'arm', 'elektroniikka', 'electronics']
+    companies = ['kavo kerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala', 'rocla', 'valmet']
     for key in key_words:
         start_urls.append('https://tyopaikat.oikotie.fi/haku?sijainti[101]=101&jq={}&sort_by=score&page=0'.format(key))
 
