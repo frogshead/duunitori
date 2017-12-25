@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Search Jobs from oikotie
+"""
 import scrapy
 
 class Job(scrapy.Item):
