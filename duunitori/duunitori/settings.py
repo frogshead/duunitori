@@ -66,6 +66,7 @@ ROBOTSTXT_OBEY = False
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'duunitori.pipelines.DuunitoriPipeline': 300,
+    'duunitori.pipelines.DatabasePipeline': 400
 }
 
 

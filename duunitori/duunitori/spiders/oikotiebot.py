@@ -19,7 +19,7 @@ class MolbotSpider(scrapy.Spider):
     allowed_domains = ['oikotie.fi']
     start_urls = []
     key_words = ['python', '.net', 'labview', 'TestStand', 'C#', 'rust', 'embedded', 'iot', 'avr',  'amazon', 'azure', 'arm', 'elektroniikka', 'electronics',  'jtag', 'qt']
-    companies = ['kavo kerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala', 'rocla', 'valmet', 'kone', 'Steris']
+    companies = ['kavo kerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala', 'rocla', 'valmet', 'kone', 'Steris', 'etteplan']
     for key in key_words:
         start_urls.append('https://tyopaikat.oikotie.fi/haku?sijainti[101]=101&jq={}&sort_by=score&page=0'.format(key))
 
