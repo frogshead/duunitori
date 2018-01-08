@@ -25,7 +25,7 @@ class DatabasePipeline(object):
     def __init__(self):
         self.client = sqlite3.connect("duunitori.db")
         self.cursor = self.client.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS duunit(id INTEGER PRIMARY KEY, url VARCHAR(255),title VARCHAR(255),company VARCHAR(255),description VARCHAR(255))")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS duunit(id INTEGER PRIMARY KEY, url VARCHAR(255),title VARCHAR(255),company VARCHAR(255),description VARCHAR(255), row_added TEXT)")
     
     def process_item(self, item, spider):
         self.cursor.execute("SELECT * FROM duunit where url=?", item['link'])
@@ -33,7 +33,7 @@ class DatabasePipeline(object):
         if result:
             logging.debug("Item already database")
         else:
-            self.cursor.execute("INSERT INTO duunit(url, title, company, description) VALUES(?, ?, ?, ?)", (item['link'][0], item['title'][0], item['company'][0], item['description'][0],))
+            self.cursor.execute("INSERT INTO duunit(url, title, company, description, row_added) VALUES(?, ?, ?, ?, datetime('now'))", (item['link'][0], item['title'][0], item['company'][0], item['description'][0],))
             self.client.commit()
             return item
 

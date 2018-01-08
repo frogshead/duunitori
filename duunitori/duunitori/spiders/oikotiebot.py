@@ -3,6 +3,8 @@
 Search Jobs from oikotie
 """
 import scrapy
+from scrapy.utils.project import get_project_settings
+
 
 class Job(scrapy.Item):
     """Represents Job object """
@@ -18,13 +20,13 @@ class MolbotSpider(scrapy.Spider):
     name = 'oikotiebot'
     allowed_domains = ['oikotie.fi']
     start_urls = []
-    key_words = ['python', '.net', 'labview', 'TestStand', 'C#', 'rust', 'embedded', 'iot', 'avr',  'amazon', 'azure', 'arm', 'elektroniikka', 'electronics',  'jtag', 'qt']
-    companies = ['kavo kerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala', 'rocla', 'valmet', 'kone', 'Steris', 'etteplan']
-    for key in key_words:
+    settings = get_project_settings()
+    keywords = settings.getlist('KEYWORDS')
+    keywords = keywords + settings.getlist('COMPANIES')
+    
+    
+    for key in keywords:
         start_urls.append('https://tyopaikat.oikotie.fi/haku?sijainti[101]=101&jq={}&sort_by=score&page=0'.format(key))
-
-    for company in companies:
-        start_urls.append('https://tyopaikat.oikotie.fi/haku?sijainti[101]=101&jq={}&sort_by=score&page=0'.format(company))
         
     def parse(self, response):
         jobs = response.css('ul.joblist').css('li')
