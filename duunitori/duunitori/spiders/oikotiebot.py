@@ -13,6 +13,8 @@ class Job(scrapy.Item):
     description = scrapy.Field()
     link = scrapy.Field()
 
+    
+
 class MolbotSpider(scrapy.Spider):
     """
     Search jobs based on keywords and companies
@@ -31,6 +33,9 @@ class MolbotSpider(scrapy.Spider):
     def parse(self, response):
         jobs = response.css('ul.joblist').css('li')
         for job in jobs:
-            item = Job(title = job.css('h4::text').extract(), description = "empty for now", company = job.css('h6 span span::text').extract(),  link= job.xpath('./a/@href').extract())
+            _company = job.css('h6::text').extract()[0].split('|')[0].strip()
+            item = Job(title = job.css('h4::text').extract(), description = "empty for now",company = _company ,  link= job.xpath('./a/@href').extract())
+            print(item['company'])
             yield item
+            
             
