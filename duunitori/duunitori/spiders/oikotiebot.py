@@ -35,7 +35,6 @@ class MolbotSpider(scrapy.Spider):
         for job in jobs:
             _company = job.css('h6::text').extract()[0].split('|')[0].strip()
             item = Job(title = job.css('h4::text').extract(), description = "empty for now",company = _company ,  link= job.xpath('./a/@href').extract())
-            print(item['company'])
             yield item
             
             
