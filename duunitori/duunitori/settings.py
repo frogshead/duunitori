@@ -13,8 +13,9 @@ BOT_NAME = 'duunitori'
 
 
 KEYWORDS = ['python', '.net', 'labview', 'TestStand', 'C#', 'rust', 'embedded', 'iot', 'avr',  'amazon', 'azure', 'arm', 'elektroniikka', 'electronics',  'jtag', 'qt']
-    
-COMPANIES = ['kavo kerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala', 'rocla', 'valmet', 'kone', 'Steris', 'etteplan']
+
+
+COMPANIES = ['kavo kerr', 'kavokerr', 'suunto', 'metos', 'murata', 'thermo-fisher', 'vaisala', 'rocla', 'valmet', 'kone', 'Steris', 'etteplan', 'marioff', 'Hetzner','metso', 'eaton', 'ifolor']
 
 SPIDER_MODULES = ['duunitori.spiders']
 NEWSPIDER_MODULE = 'duunitori.spiders'

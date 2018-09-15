@@ -4,14 +4,15 @@ Search Jobs from oikotie
 """
 import scrapy
 from scrapy.utils.project import get_project_settings
+from duunitori.items import DuunitoriItem
 
 
-class Job(scrapy.Item):
-    """Represents Job object """
-    title = scrapy.Field()
-    company = scrapy.Field()
-    description = scrapy.Field()
-    link = scrapy.Field()
+# class Job(scrapy.Item):
+#     """Represents Job object """
+#     title = scrapy.Field()
+#     company = scrapy.Field()
+#     description = scrapy.Field()
+#     link = scrapy.Field()
 
     
 
@@ -33,8 +34,9 @@ class MolbotSpider(scrapy.Spider):
     def parse(self, response):
         jobs = response.css('ul.joblist').css('li')
         for job in jobs:
+            
             _company = job.css('h6::text').extract()[0].split('|')[0].strip()
-            item = Job(title = job.css('h4::text').extract(), description = "empty for now",company = _company ,  link= job.xpath('./a/@href').extract())
+            item = DuunitoriItem(title = job.css('h4::text').extract(), description = "empty for now",company = _company ,  link= job.xpath('./a/@href').extract())
             yield item
             
             

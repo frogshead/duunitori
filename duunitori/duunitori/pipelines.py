@@ -33,7 +33,7 @@ class DatabasePipeline(object):
         if result:
             logging.debug("Item already database")
         else:
-            self.cursor.execute("INSERT INTO duunit(url, title, company, description, row_added) VALUES(?, ?, ?, ?, datetime('now'))", (item['link'][0], item['title'][0], item['company'], item['description'][0],))
+            self.cursor.execute("INSERT INTO duunit(url, title, company, description, row_added) VALUES(?, ?, ?, ?, datetime('now'))", (item['link'][0], item['title'][0], item['company'][0], item['description'][0]))
             self.client.commit()
             return item
 

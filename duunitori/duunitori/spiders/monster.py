@@ -3,15 +3,8 @@ import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.utils.project import get_project_settings
-
-class Job(scrapy.Item):
-    """Represents Job object """
-    title = scrapy.Field()
-    company = scrapy.Field()
-    description = scrapy.Field()
-    link = scrapy.Field()
-
-
+from scrapy.loader import ItemLoader
+from duunitori.items import DuunitoriItem
 
 class MonsterSpider(CrawlSpider):
     name = 'monster'
@@ -29,14 +22,12 @@ class MonsterSpider(CrawlSpider):
         start_urls.append('https://www.monster.fi/tyopaikat/haku/?q={}&where=Alue__3AUusimaa&cy=fi'.format(key))
 
     def parse(self, response):
-        
-        jobs = response.xpath('//article')
+        jobs = response.xpath('//section')
+        print("Found {} jobs".format(len(jobs)))
         for job in jobs:
-            print(job)
-            item = Job(title = 'title')
+            item = DuunitoriItem()
+            item['link'] = job.xpath('.//div/div/header/h2/a/@href').extract()
+            item['company'] =  job.xpath('.//div/div/div/a/text()').extract()
+            item['description'] = job.xpath('.//div/div/header/h2/a/text()').extract()
+            item['title'] = job.xpath('.//div/div/header/h2/a/text()').extract()
             yield item
-        
-        #i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
-        #i['name'] = response.xpath('//div[@id="name"]').extract()
-        #i['description'] = response.xpath('//div[@id="description"]').extract()
-        #yield item
